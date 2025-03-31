@@ -6,6 +6,7 @@
 #include <vector>
 
 class gameObject;
+class Enemy;
 
 class Player
 {
@@ -15,12 +16,15 @@ public:
 	float health;
 	float speed;
 	float proj_speed;
-	float proj_counter;
 	int proj_delay;
 	int proj_delay_counter;
+	float size;
+	bool hit;
+	int confused_time;
+	bool can_shoot;
 	Player();
-	Player(float x, float y, float w, float h, float s);
 	void move_player();
+	void normalize_opossite_dir_p(Enemy &enemy);
 	void player_attack(std::vector<gameObject> &object);
 	~Player();
 };

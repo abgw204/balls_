@@ -3,6 +3,7 @@
 
 #include "player.hpp"
 #include "gameObject.hpp"
+#include "enemy.hpp"
 #include "UI.hpp"
 #include "../raylib/src/raylib.h"
 #include "../raylib/src/raymath.h"
@@ -14,7 +15,6 @@
 #define SCREEN_WIDTH 1000
 #define SCREEN_HEIGHT 900
 
-#define GRAVITY 9.8
-
 #define TARGET_FPS 60
+
 #endif
