@@ -75,7 +75,7 @@ int main()
     std::vector<gameObject> objects;
     std::vector<Enemy> enemies;
 
-    Enemy enemy({1000, 1000}, {1000, 1000}, 17, 17, 3, 0, false, 30, false, false, 20);
+    Enemy enemy({800, 300}, {0, 0}, 17, 17, 3, 0, false, 30, false, false, 20);
     enemies.push_back(enemy);
     enemies.emplace_back();
 

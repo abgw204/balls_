@@ -1,6 +1,6 @@
 #include "main.hpp"
 
-Player::Player() : pos{300, 300},
+Player::Player() : pos{500, 300},
 				   dir{100, 100},
 				   health(400),
 				   speed(4),
