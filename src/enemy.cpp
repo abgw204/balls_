@@ -8,7 +8,8 @@ Enemy::Enemy() : pos{200, 200},
                  confused_time(30),
                  show_health(false),
                  hit(false),
-                 hit_slow(30)
+                 hit_slow(30),
+                 walking_diff(30)
 {
     LOG("An enemy was created with default parameters");
 }
@@ -23,7 +24,8 @@ Enemy::Enemy(Vector2 pos,
              int confused_time,
              bool show_health,
              bool hit,
-             int hit_slow)
+             int hit_slow,
+             float walking_diff)
     : pos(pos),
       dir(dir),
       size(size),
@@ -34,7 +36,8 @@ Enemy::Enemy(Vector2 pos,
       confused_time(confused_time),
       show_health(show_health),
       hit(hit),
-      hit_slow(hit_slow)
+      hit_slow(hit_slow),
+      walking_diff(walking_diff)
 {
     LOG("An enemy was created with parameters");
 }
@@ -45,40 +48,47 @@ void Enemy::draw_enemy()
     if (!show_health)
         return;
 
-    if (show_health)
-        DrawLineEx({pos.x - 19, pos.y - 25}, {pos.x + health, pos.y - 25}, 4, {0, 0, 0, life_t});
+    DrawLineEx({pos.x - 19, pos.y - 25}, {pos.x + health, pos.y - 25}, 4, {0, 0, 0, life_t});
     if (life_t < 220)
         life_t += 10;
 }
 
-void Enemy::normalize_opossite_dir_e(Player &player)
+void Enemy::normalize_opossite_dir_e(Player &player, float current_speed)
 {
     Vector2 newDir = Vector2Normalize(Vector2Subtract(pos, player.pos));
-    pos.x += newDir.x * speed;
-    pos.y += newDir.y * speed;
+    pos.x += newDir.x * current_speed;
+    pos.y += newDir.y * current_speed;
     confused_time--;
 }
 
 void Enemy::update_enemy(Player &player)
 {
-    if (hit && hit_slow == 30)
-        speed -= 1;
+    float current_speed = speed;
+
     if (hit)
-        hit_slow--;
-    if (hit_slow == 0)
     {
-        hit = false;
-        speed += 1;
-        hit_slow = 30;
+        current_speed *= 0.5f;
+        hit_slow--;
+        if (hit_slow <= 0)
+        {
+            hit = false;
+            hit_slow = 30;
+        }
     }
     if (!enemyConfused)
     {
+        current_speed -= walking_diff > 0 ? walking_diff / 10 : 0;
+        walking_diff--;
         Vector2 newDir = Vector2Normalize(Vector2Subtract(player.pos, pos));
-        pos.x += newDir.x * speed;
-        pos.y += newDir.y * speed;
+        pos.x += newDir.x * current_speed;
+        pos.y += newDir.y * current_speed;
     }
     else
-        normalize_opossite_dir_e(player);
+    {
+        walking_diff = 30;
+        current_speed += confused_time / 10;
+        normalize_opossite_dir_e(player, current_speed);
+    }
     if (confused_time == 0)
     {
         enemyConfused = false;

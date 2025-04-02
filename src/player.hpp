@@ -23,9 +23,9 @@ public:
 	int confused_time;
 	bool can_shoot;
 	Player();
-	void move_player();
+	void move_player(Camera2D camera);
 	void normalize_opossite_dir_p(Enemy &enemy);
-	void player_attack(std::vector<gameObject> &object);
+	void player_attack(std::vector<gameObject> &object, Camera2D camera);
 	~Player();
 };
 

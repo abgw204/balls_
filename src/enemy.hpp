@@ -17,6 +17,7 @@ public:
     bool show_health;
     bool hit;
     int hit_slow;
+    float walking_diff;
 
 public:
     Enemy();
@@ -30,10 +31,11 @@ public:
           int confused_time,
           bool show_health,
           bool hit,
-          int hit_slow);
+          int hit_slow,
+          float walking_diff);
     void draw_enemy();
     void update_enemy(Player &player);
-    void normalize_opossite_dir_e(Player &player);
+    void normalize_opossite_dir_e(Player &player, float current_speed);
     ~Enemy();
 };
 

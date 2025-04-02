@@ -1,11 +1,11 @@
 #include "main.hpp"
 
-Player::Player() : pos{500, 300},
+Player::Player() : pos{SCREEN_WIDTH / 2.0f, SCREEN_HEIGHT / 2.0f},
 				   dir{100, 100},
 				   health(400),
 				   speed(4),
-				   proj_speed(10),
-				   proj_delay(10),
+				   proj_speed(12),
+				   proj_delay(5),
 				   proj_delay_counter(0),
 				   size(20),
 				   hit(false),
@@ -15,7 +15,7 @@ Player::Player() : pos{500, 300},
 	LOG("A player was created in a default way");
 }
 
-void Player::move_player()
+void Player::move_player(Camera2D camera)
 {
 	if (health < 150) // player death UI
 		exit(1);
@@ -45,7 +45,8 @@ void Player::move_player()
 	pos.x += direction.x * speed;
 	pos.y += direction.y * speed;
 
-	Vector2 newDir = Vector2Normalize(Vector2Subtract(GetMousePosition(), pos));
+	Vector2 mouseWorldPos = GetScreenToWorld2D(GetMousePosition(), camera);
+	Vector2 newDir = Vector2Normalize(Vector2Subtract(mouseWorldPos, pos));
 	Vector2 targetPos = {pos.x + newDir.x * 35, pos.y + newDir.y * 35};
 	if (hit)
 	{
@@ -59,11 +60,13 @@ void Player::move_player()
 	}
 }
 
-void Player::player_attack(std::vector<gameObject> &objects)
+void Player::player_attack(std::vector<gameObject> &objects, Camera2D camera)
 {
-	if (IsMouseButtonPressed(0) && proj_delay_counter >= proj_delay && can_shoot)
+
+	if (IsMouseButtonDown(0) && proj_delay_counter >= proj_delay && can_shoot)
 	{
-		Vector2 _dir = Vector2Normalize(Vector2Subtract(GetMousePosition(), pos));
+		Vector2 mouseWorldPos = GetScreenToWorld2D(GetMousePosition(), camera);
+		Vector2 _dir = Vector2Normalize(Vector2Subtract(mouseWorldPos, pos));
 		objects.emplace_back(pos, _dir, proj_speed, 6.0f, 0);
 		proj_delay_counter = 0;
 	}

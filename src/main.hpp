@@ -7,13 +7,14 @@
 #include "UI.hpp"
 #include "../raylib/src/raylib.h"
 #include "../raylib/src/raymath.h"
+#include <algorithm>
 #include <iostream>
 #include <vector>
 
 #define LOG(x) std::cout << x << "\n";
 
-#define SCREEN_WIDTH 1000
-#define SCREEN_HEIGHT 900
+#define SCREEN_WIDTH 1920
+#define SCREEN_HEIGHT 1080
 
 #define TARGET_FPS 60
 

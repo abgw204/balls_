@@ -8,6 +8,7 @@ private:
     Vector2 life_pos_start;
     Vector2 life_pos_end;
     Vector2 ammo_pos;
+    bool main_menu;
 
 public:
     UI();

@@ -2,7 +2,7 @@ CC = g++
 CFLAGS = -Lraylib -lraylib -lm -lpthread -ldl -lX11 -Iinclude -Wall
 SRC_DIR = src
 OBJ_DIR = obj
-EXEC = Cub2d
+EXEC = balls
 
 SRC = $(wildcard $(SRC_DIR)/*.cpp)
 OBJ = $(patsubst $(SRC_DIR)/%.cpp, $(OBJ_DIR)/%.o, $(SRC))
