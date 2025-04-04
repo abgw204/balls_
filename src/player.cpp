@@ -67,7 +67,7 @@ void Player::player_attack(std::vector<gameObject> &objects, Camera2D camera)
 	{
 		Vector2 mouseWorldPos = GetScreenToWorld2D(GetMousePosition(), camera);
 		Vector2 _dir = Vector2Normalize(Vector2Subtract(mouseWorldPos, pos));
-		objects.emplace_back(pos, _dir, proj_speed, 6.0f, 0);
+		objects.emplace_back(pos, _dir, proj_speed, 5.0f, 0);
 		proj_delay_counter = 0;
 	}
 	proj_delay_counter++;

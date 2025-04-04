@@ -68,17 +68,19 @@ int main()
     camera.zoom = 1.0f;
 
     SetTargetFPS(TARGET_FPS);
-    ToggleFullscreen();
+    //ToggleFullscreen();
 
     UI ui;
 
     std::vector<Enemy> enemies;
-    enemies.reserve(50);
-    for (int i = 0; i < 50; i++)
+    enemies.reserve(20);
+    for (int i = 0; i < 20; i++)
         enemies.emplace_back(Vector2{(float)GetRandomValue(0, 2300), (float)GetRandomValue(0, 1500)}, Vector2{0, 0}, 17, 17, 3, 0, false, 30, false, false, 20, 30);
 
     while (!WindowShouldClose())
     {
+        if (enemies.size() < 20)
+            enemies.emplace_back(Vector2{(float)GetRandomValue(0, player.pos.x - 960), (float)GetRandomValue(0, player.pos.y - 545)}, Vector2{0, 0}, 17, 17, 3, 0, false, 30, false, false, 20, 30);
         BeginDrawing();
         BeginMode2D(camera);
         camera.target = (Vector2){player.pos.x + 20.0f, player.pos.y + 20.0f};
@@ -88,7 +90,7 @@ int main()
         handle_collisions(player, enemies);
         player.move_player(camera);
         player.player_attack(objects, camera);
-        // ui.update_ui(player);
+        //ui.update_ui(player);
         handle_proj(objects);
         handle_collisions_proj(player, enemies, objects);
 
