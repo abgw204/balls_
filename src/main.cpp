@@ -23,7 +23,7 @@ static void handle_collisions(Player &player, std::vector<Enemy> &enemies)
     {
         if (CheckCollisionCircles(player.pos, player.size, enemy.pos, enemy.size))
         {
-            // player.health -= 40;
+            player.health -= 40;
             enemy.enemyConfused = true;
             player.hit = true;
             player.can_shoot = false;
@@ -81,6 +81,8 @@ int main()
     {
         if (enemies.size() < 20)
             enemies.emplace_back(Vector2{(float)GetRandomValue(0, player.pos.x - 960), (float)GetRandomValue(0, player.pos.y - 545)}, Vector2{0, 0}, 17, 17, 3, 0, false, 30, false, false, 20, 30);
+        std::cout << "X: " << player.pos.x << "\n" << "Y: " << player.pos.y << "\n";
+        LOG(player.pos.y);
         BeginDrawing();
         BeginMode2D(camera);
         camera.target = (Vector2){player.pos.x + 20.0f, player.pos.y + 20.0f};
