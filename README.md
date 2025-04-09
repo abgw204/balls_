@@ -7,7 +7,7 @@ You control a character using **WASD** and shoot with **left mouse click**. The 
 ### 🧠 What I learned / challenges
 
 - Working with basic **physics** like velocity, collision, and movement.
-- Managing **game objects** (player, projectiles, enemies) using C++.
+- Managing **game objects** (player, projectiles, enemies) using OOP.
 - The usage of C++ STL containers to store data and use it efficiently as the game runs.
 - Integrating **mouse input** and **keyboard controls** smoothly.
 - Drawing sprites and updating the screen with **Raylib**’s rendering loop.
